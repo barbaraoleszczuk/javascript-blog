@@ -47,7 +47,7 @@ const titleClickHandler = function(event){
     optTitleListSelector = '.titles';
   
 
-    function generateTitleLinks(customSelector = ''){
+   function generateTitleLinks (customSelector = ''){
 
     /* remove contents of titleList */
          const titleList = document.querySelector(optTitleListSelector);
@@ -185,12 +185,13 @@ const titleClickHandler = function(event){
       
       function addClickListenersToTags(){
         /* find all links to tags */
-      
+        const links = document.querySelectorAll('.list.list-horizontal a')
         /* START LOOP: for each link */
-      
+      for (const link of links){
           /* add tagClickHandler as event listener for that link */
-      
+          link.addEventListener('click', tagClickHandler);
         /* END LOOP: for each link */
+        }
       }
       
       addClickListenersToTags();
