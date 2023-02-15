@@ -1,3 +1,9 @@
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  articleTag: Handlebars.compile(document.querySelector('#template-article-tag').innerHTML),
+  articleAuthor: Handlebars.compile(document.querySelector('#template-article-author').innerHTML)
+}
+
 'use strict';
 const titleClickHandler = function(event){
   event.preventDefault();
@@ -83,7 +89,8 @@ function generateTitleLinks (customSelector = ''){
 
     /* create HTML of the link */
 
-    const linkHTML = '<li><a href="#'+ articleId +'"><span>'+ articleTitle +'</span></a></li>';
+    const linkHTMLData = {id: articleId, title: articleTitle};
+    const linkHTML = templates.articleLink(linkHTMLData);
     // console.log(linkHTML);
 
     /* insert link into titleList */
@@ -172,7 +179,9 @@ function generateTags(){
       // console.log(tag);
       /* generate HTML of the link */
 
-      const linkHTML = '<li><a href="#tag-'+ tag +'"><span>'+ tag +'</span></a></li>';
+      const linkHTMLData = {id: tag, title: tag};
+      const linkHTML = templates.articleTag(linkHTMLData);
+      // const linkHTML = '<li><a href="#tag-'+ tag +'"><span>'+ tag +'</span></a></li>';
       // console.log(linkHTML);
       
       /* add generated code to html variable */
@@ -285,10 +294,13 @@ function generateAuthors(){
     // console.log(Authors);
 
     /* generate HTML of the link */
-    const linkAuthor = '<p class="post-author"><a href="#author-' + Authors + '"><span>by ' + Authors + '</span></a></p>';
+    const linkHTMLData = {id: Authors, title: Authors};
+    const linkAuthor = templates.articleAuthor(linkHTMLData);
+    // const linkAuthor = '<p class="post-author"><a href="#author-' + Authors + '"><span>by ' + Authors + '</span></a></p>';
      
-    /* insert HTML of all the links into the authors wrapper */
-    authorWrapper.innerHTML = linkAuthor;
+     
+     /* insert HTML of all the links into the authors wrapper */
+     authorWrapper.innerHTML = linkAuthor;
     
 
     /* [NEW] check if this link is NOT already in allAuthors */
